@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vandana Shukla — Software Verification Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F8FA;
+    --surface: #FFFFFF;
+    --ink: #14171C;
+    --muted: #5B6470;
+    --accent: #1F6F5C;
+    --accent-soft: #E4EFEC;
+    --accent2: #E8744C;
+    --accent2-soft: #FBE7DD;
+    --accent3: #4A5FE0;
+    --accent3-soft: #E6E9FC;
+    --line: #DDE1E6;
+    --maxw: 760px;
+    --gutter-w: 64px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ---------- gutter line (signature element) ---------- */
+  .gutter{
+    position:fixed;
+    top:0; bottom:0;
+    left:calc(50% - var(--maxw)/2 - 28px);
+    width:1px;
+    background:var(--line);
+    z-index:0;
+  }
+  @media (max-width: 900px){ .gutter{ display:none; } }
+
+  .section-number{
+    position:absolute;
+    left:calc(50% - var(--maxw)/2 - 28px);
+    transform:translateX(-50%);
+    top:0;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    background:var(--bg);
+    padding:4px 0;
+  }
+  @media (max-width: 900px){ .section-number{ display:none; } }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px max(24px, calc(50% - var(--maxw)/2 - 28px));
+    backdrop-filter:blur(8px);
+    background:rgba(247,248,250,0.85);
+    z-index:10;
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease;
+  }
+  nav.scrolled{ border-color:var(--line); }
+
+  .brand{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:18px;
+  }
+  .brand span{ color:var(--accent); }
+
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-size:14px;
+    font-family:'JetBrains Mono', monospace;
+  }
+  .nav-links a{
+    color:var(--muted);
+    position:relative;
+    transition:color .2s;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--ink); }
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:-4px;
+    width:0; height:1px;
+    background:var(--accent);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  @media (max-width:640px){ .nav-links{ display:none; } }
+
+  /* ---------- layout ---------- */
+  main{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  section{
+    position:relative;
+    padding:120px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{ border-bottom:none; }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--accent);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{ content:'//'; color:var(--muted); }
+  .eyebrow.c-coral{ color:var(--accent2); }
+  .eyebrow.c-blue{ color:var(--accent3); }
+
+  /* ---------- hero ---------- */
+  #hero{ padding-top:160px; position:relative; overflow:hidden; }
+
+  #bg-canvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
+  }
+
+  .hero-grid{
+    position:relative;
+    z-index:1;
+    max-width:600px;
+  }
+
+  .status-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--muted);
+    border:1px solid var(--line);
+    background:var(--surface);
+    padding:6px 12px;
+    border-radius:20px;
+    margin-bottom:28px;
+  }
+  .status-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--accent);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(31,111,92,0.45); }
+    70%{ box-shadow:0 0 0 7px rgba(31,111,92,0); }
+    100%{ box-shadow:0 0 0 0 rgba(31,111,92,0); }
+  }
+
+  h1.name{
+    font-size:clamp(40px, 7vw, 64px);
+    line-height:1.05;
+    margin-bottom:14px;
+    background:linear-gradient(100deg, var(--ink) 35%, var(--accent) 70%, var(--accent3) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .role{
+    font-size:clamp(18px, 2.4vw, 22px);
+    color:var(--accent);
+    font-weight:500;
+    margin-bottom:22px;
+  }
+
+  .tagline{
+    font-size:17px;
+    color:var(--muted);
+    max-width:520px;
+    margin-bottom:36px;
+  }
+
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:14px;
+    padding:12px 22px;
+    border-radius:3px;
+    border:1px solid var(--ink);
+    transition:all .2s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn.primary{ background:linear-gradient(95deg, var(--accent), var(--accent3)); color:#fff; border-color:transparent; }
+  .btn.primary:hover{ box-shadow:0 8px 24px -6px rgba(74,95,224,0.45); transform:translateY(-1px); }
+  .btn.ghost:hover{ background:var(--ink); color:var(--bg); }
+
+  /* ---------- about ---------- */
+  .about-text{ max-width:560px; color:var(--ink); font-size:16.5px; }
+  .about-text p + p{ margin-top:14px; }
+
+  /* ---------- skills ---------- */
+  .skill-groups{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+    margin-top:8px;
+  }
+  @media (max-width:560px){ .skill-groups{ grid-template-columns:1fr; } }
+
+  .skill-group h3{
+    font-size:14px;
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    font-weight:500;
+    margin-bottom:12px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    padding:6px 12px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:3px;
+  }
+  .tag.c-teal{ background:var(--accent-soft); border-color:transparent; color:#15493D; }
+  .tag.c-coral{ background:var(--accent2-soft); border-color:transparent; color:#9A3F1F; }
+  .tag.c-blue{ background:var(--accent3-soft); border-color:transparent; color:#2C3A9E; }
+
+  /* ---------- projects ---------- */
+  .project{
+    padding:26px 24px;
+    margin-bottom:18px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:12px;
+    border-top:3px solid var(--accent);
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:24px;
+    transition:transform .15s ease, box-shadow .25s ease, border-color .25s ease;
+    will-change:transform;
+  }
+  .project:hover{
+    box-shadow:0 20px 40px -16px rgba(20,23,28,0.2);
+  }
+  .project.c-coral{ border-top-color:var(--accent2); }
+  .project.c-blue{ border-top-color:var(--accent3); }
+
+  .project-index{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--muted);
+    font-size:14px;
+    padding-top:4px;
+  }
+
+  .project h3{ font-size:21px; margin-bottom:8px; }
+  .project p{ color:var(--muted); margin-bottom:14px; max-width:480px; }
+
+  .project-links{ display:flex; gap:16px; font-family:'JetBrains Mono', monospace; font-size:13px; }
+  .project-links a{ color:var(--accent); border-bottom:1px solid transparent; }
+  .project-links a:hover{ border-color:var(--accent); }
+  .project.c-coral .project-links a{ color:var(--accent2); }
+  .project.c-coral .project-links a:hover{ border-color:var(--accent2); }
+  .project.c-blue .project-links a{ color:var(--accent3); }
+  .project.c-blue .project-links a:hover{ border-color:var(--accent3); }
+
+  @media (max-width:560px){
+    .project{ grid-template-columns:1fr; gap:6px; }
+  }
+
+  /* ---------- experience ---------- */
+  .timeline-item{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:24px;
+    padding:22px 0;
+    border-top:1px solid var(--line);
+  }
+  .timeline-item:first-of-type{ border-top:none; }
+  .timeline-date{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--muted);
+    padding-top:3px;
+  }
+  .timeline-item h3{ font-size:18px; margin-bottom:4px; }
+  .timeline-item .company{ color:var(--accent); font-weight:500; font-size:15px; margin-bottom:10px; }
+  .timeline-item ul{ color:var(--muted); padding-left:18px; font-size:15px; }
+  .timeline-item li + li{ margin-top:4px; }
+
+  @media (max-width:560px){
+    .timeline-item{ grid-template-columns:1fr; gap:6px; }
+  }
+
+  /* ---------- contact ---------- */
+  #contact{ padding-bottom:120px; }
+  .contact-links{ display:flex; flex-direction:column; gap:14px; margin-top:28px; }
+  .contact-links a{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:20px;
+    font-weight:500;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    width:fit-content;
+    border-bottom:1px solid transparent;
+    transition:border-color .2s, color .2s;
+  }
+  .contact-links a:hover{ color:var(--accent); border-color:var(--accent); }
+  .contact-links a .mono{ color:var(--muted); font-size:13px; }
+
+  footer{
+    text-align:center;
+    padding:32px 24px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<div class="gutter" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="brand">VS<span>.</span>dev</div>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#work">projects</a>
+    <a href="#experience">experience</a>
+    <a href="#education">education</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>
+
+<main>
+
+  <section id="hero">
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <h1 class="name">Vandana Shukla</h1>
+        <div class="role">Software Verification Engineer · M.E. CS</div>
+        <div class="btn-row" style="margin-bottom:18px; gap:10px;">
+          <div class="status-badge"><span class="status-dot"></span> Open to opportunities</div>
+          <div class="status-badge">GATE Qualified (CSE)</div>
+        </div>
+        <p class="tagline">M.E. Computer Science student with industry experience as a Software Verification Intern at Intel, specializing in Network-on-Chip (NoC) verification and automation. Skilled in Python, C++, and Perl, with a keen interest in verification, compilers, and system software.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="#work">View projects →</a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="reveal">
+    <span class="section-number mono">01</span>
+    <h2 style="margin-bottom:18px; font-size:28px;">A little about me</h2>
+    <div class="about-text">
+      <p>I'm an M.E. Computer Science student at Thapar Institute of Engineering &amp; Technology, currently working as a Software Verification Intern at Intel, where I focus on Network-on-Chip (NoC) verification and automation.</p>
+      <p>I enjoy developing scalable verification tools, debugging system-level issues, and optimizing workflows using Python, C++, and Perl — backed by a strong foundation in data structures, operating systems, and low-level programming.</p>
+    </div>
+  </section>
+
+  <section id="skills" class="reveal">
+    <span class="section-number mono">02</span>
+    <h2 style="margin-bottom:24px; font-size:28px;">Tools I reach for</h2>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <div class="tag-row">
+          <span class="tag c-teal">C</span>
+          <span class="tag c-teal">C++</span>
+          <span class="tag c-teal">Python</span>
+          <span class="tag c-teal">Perl</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Core Concepts</h3>
+        <div class="tag-row">
+          <span class="tag c-blue">Data Structures</span>
+          <span class="tag c-blue">Operating Systems</span>
+          <span class="tag c-blue">DBMS</span>
+          <span class="tag c-blue">OOPs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Other</h3>
+        <div class="tag-row">
+          <span class="tag c-coral">Machine Learning</span>
+          <span class="tag c-coral">NLP</span>
+          <span class="tag c-coral">Data Analysis</span>
+          <span class="tag c-coral">Linux</span>
+          <span class="tag c-coral">Git</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="reveal">
+    <span class="section-number mono">03</span>
+    <h2 style="margin-bottom:8px; font-size:28px;">Projects</h2>
+
+    <div class="project">
+      <div class="project-index mono">01</div>
+      <div>
+        <h3>Electric Vehicle Analysis</h3>
+        <p>Data-driven analysis of electric vehicle adoption trends and performance metrics, including data cleaning, visualization, and predictive analysis to derive insights.</p>
+        <div class="tag-row">
+          <span class="tag c-teal">Python</span><span class="tag c-teal">Pandas</span><span class="tag c-teal">NumPy</span><span class="tag c-teal">Matplotlib</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project c-coral">
+      <div class="project-index mono">02</div>
+      <div>
+        <h3>Memory Allocator</h3>
+        <p>Custom dynamic memory allocator simulating malloc/free behavior, using first-fit and best-fit placement strategies. Handles fragmentation via coalescing of adjacent free blocks, validated against standard library benchmarks.</p>
+        <div class="tag-row">
+          <span class="tag c-coral">C</span><span class="tag c-coral">Memory Management</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project c-blue">
+      <div class="project-index mono">03</div>
+      <div>
+        <h3>Phone Directory (BST)</h3>
+        <p>Efficient contact management system implementing insert, search, and delete operations using a Binary Search Tree, achieving O(log n) complexity for balanced operations.</p>
+        <div class="tag-row">
+          <span class="tag c-blue">C++</span><span class="tag c-blue">Data Structures</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="reveal">
+    <span class="section-number mono">04</span>
+    <h2 style="margin-bottom:8px; font-size:28px;">Where I've worked</h2>
+
+    <div class="timeline-item">
+      <div class="timeline-date mono">Jun 2025 — Present</div>
+      <div>
+        <h3>Software Verification Intern</h3>
+        <div class="company">Intel</div>
+        <ul>
+          <li>Designed and implemented a Python-based perfsim log parser, forming the foundation for protocol checkers to validate coherent interconnect transactions (ACE/CHI/IDI)</li>
+          <li>Performed regression triage and root-cause analysis within the Softweave verification framework, identifying failures in RTL collateral, stamping flows, and simulation executions</li>
+          <li>Performed system-level validation across simulation environments, debugging functional and protocol-level issues in NoC designs</li>
+          <li>Optimized verification scripts using Python, Perl, and C++ to improve execution efficiency</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="reveal">
+    <span class="section-number mono">05</span>
+    <h2 style="margin-bottom:8px; font-size:28px;">Academic background</h2>
+
+    <div class="timeline-item">
+      <div class="timeline-date mono">2024 — Present</div>
+      <div>
+        <h3>M.E. Computer Science</h3>
+        <div class="company">Thapar Institute of Engineering &amp; Technology</div>
+        <ul>
+          <li>CGPA: 8.94</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date mono">2019 — 2023</div>
+      <div>
+        <h3>B.Tech, Computer Science &amp; Engineering</h3>
+        <div class="company">Feroze Gandhi Institute of Engineering &amp; Technology</div>
+        <ul>
+          <li>CGPA: 8.66</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date mono">2018 — 2019</div>
+      <div>
+        <h3>12th Grade</h3>
+        <div class="company">Jagran Public School</div>
+        <ul>
+          <li>Percentage: 86.4%</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date mono">2016 — 2017</div>
+      <div>
+        <h3>10th Grade</h3>
+        <div class="company">Jagran Public School</div>
+        <ul>
+          <li>CGPA: 9.4</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-date mono">Certifications</div>
+      <div>
+        <h3>NPTEL Courses</h3>
+        <ul>
+          <li>Database Management Systems — IIT Kharagpur</li>
+          <li>Joy of Computing Using Python — IIT Ropar</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal">
+    <span class="section-number mono">06</span>
+    <h2 style="margin-bottom:8px; font-size:28px;">Let's talk</h2>
+    <p class="tagline" style="margin-bottom:0; margin-top:10px;">Open to roles and opportunities in verification, compilers, and system software. Best way to reach me is email or phone.</p>
+    <div class="contact-links">
+      <a href="mailto:shuklavandana864@gmail.com">shuklavandana864@gmail.com <span class="mono">→</span></a>
+      <a href="tel:+916392142995">+91-6392142995 <span class="mono">→</span></a>
+      <a href="#">LinkedIn <span class="mono">→</span></a>
+    </div>
+  </section>
+
+</main>
+
+<footer>© Vandana Shukla</footer>
+
+<script>
+  // nav border on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 8);
+  });
+
+  // reveal-on-scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => io.observe(el));
+
+  // ambient dot-grid canvas behind the hero
+  (function(){
+    const canvas = document.getElementById('bg-canvas');
+    const hero = document.getElementById('hero');
+    if (!canvas || !hero) return;
+    const ctx = canvas.getContext('2d');
+    const spacing = 32;
+    const dpr = window.devicePixelRatio || 1;
+    let w, h, dots = [];
+    let mouse = { x: -9999, y: -9999 };
+
+    function resize(){
+      w = hero.offsetWidth;
+      h = hero.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      dots = [];
+      for (let x = spacing / 2; x < w; x += spacing){
+        for (let y = spacing / 2; y < h; y += spacing){
+          dots.push({ x, y });
+        }
+      }
+    }
+
+    function draw(){
+      ctx.clearRect(0, 0, w, h);
+      const reach = 130;
+      dots.forEach(d => {
+        const dx = d.x - mouse.x;
+        const dy = d.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const t = Math.max(0, 1 - dist / reach);
+        const r = 1.3 + t * 2.3;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = t > 0
+          ? `rgba(31,111,92,${0.15 + t * 0.55})`
+          : 'rgba(20,23,28,0.06)';
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    hero.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+  })();
+
+  // subtle tilt on project cards
+  document.querySelectorAll('.project').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rotateX = ((y / rect.height) - 0.5) * -5;
+      const rotateY = ((x / rect.width) - 0.5) * 5;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+</script>
+
+</body>
+</html>
